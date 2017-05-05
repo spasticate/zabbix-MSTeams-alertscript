@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Slack incoming web-hook URL and user name
-url='CHANGEME'		# example: https://hooks.slack.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123
-username='Zabbix'
+# Teams incoming web-hook URL and user name
+url='https://outlook.office.com/webhook/7df98e3f-255f-4865-9d10-d4a6f9c2d527@5f5c8279-ccd7-4c47-8d15-ac9cc1973501/IncomingWebhook/1760a3070303466f8cac4d725c4be87d/d50bda80-4bf2-484c-ae6a-3537f593c1a6'                # https://dev.outlook.com/Connectors/GetStarted#posting-more-complex-cards
+curlheader='-H "Content-Type: application/json"'
+agent='-A "zabbix-teams-alertscript / https://github.com/ericoc/zabbix-slack-alertscript"'
+curlmaxtime='-m 60'
+# username='Zabbix' # dont need this anymore
 
 ## Values received by this script:
 # To = $1 (Slack channel or user to send the message to, specified in the Zabbix web interface; "@username" or "#channel")
@@ -10,17 +13,17 @@ username='Zabbix'
 # Message = $3 (whatever message the Zabbix action sends, preferably something like "Zabbix server is unreachable for 5 minutes - Zabbix server (127.0.0.1)")
 
 # Get the Slack channel or user ($1) and Zabbix subject ($2 - hopefully either PROBLEM or RECOVERY)
-to="$1"
+# to="$1" #dont need this
 subject="$2"
 
-# Change message emoji depending on the subject - smile (RECOVERY), frowning (PROBLEM), or ghost (for everything else)
+# Change message themeColor depending on the subject - green (RECOVERY), red (PROBLEM), or grey (for everything else)
 recoversub='^RECOVER(Y|ED)?$'
 if [[ "$subject" =~ ${recoversub} ]]; then
-	emoji=':smile:'
+        THEMECOLOR='43EA00'
 elif [ "$subject" == 'PROBLEM' ]; then
-	emoji=':frowning:'
+        THEMECOLOR='EA4300'
 else
-	emoji=':ghost:'
+        THEMECOLOR='555555'
 fi
 
 # The message that we want to send to Slack is the "subject" value ($2 / $subject - that we got earlier)
@@ -28,5 +31,9 @@ fi
 message="${subject}: $3"
 
 # Build our JSON payload and send it as a POST request to the Slack incoming web-hook URL
-payload="payload={\"channel\": \"${to//\"/\\\"}\", \"username\": \"${username//\"/\\\"}\", \"text\": \"${message//\"/\\\"}\", \"icon_emoji\": \"${emoji}\"}"
-curl -m 5 --data-urlencode "${payload}" $url -A 'zabbix-slack-alertscript / https://github.com/ericoc/zabbix-slack-alertscript'
+
+payload=\""{\\\"title\\\": \\\"${subject} \\\", \\\"text\\\": \\\"${message} \\\", \\\"themeColor\\\": \\\"${THEMECOLOR}\\\"}"\"
+
+curldata=$(echo -d "$payload")
+
+eval curl $curlmaxtime $curlheader $curldata $url $agent
