@@ -1,4 +1,4 @@
-Zabbix Slack AlertScript
+Zabbix MS Teams AlertScript
 ========================
 
 
