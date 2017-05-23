@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Teams incoming web-hook URL and user name
-url='https://outlook.office.com/webhook/7df98e3f-255f-4865-9d10-d4a6f9c2d527@5f5c8279-ccd7-4c47-8d15-ac9cc1973501/IncomingWebhook/1760a3070303466f8cac4d725c4be87d/d50bda80-4bf2-484c-ae6a-3537f593c1a6'                # https://dev.outlook.com/Connectors/GetStarted#posting-more-complex-cards
+url='https://outlook.office.com/webhook/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'                # https://dev.outlook.com/Connectors/GetStarted#posting-more-complex-cards
 curlheader='-H "Content-Type: application/json"'
 agent='-A "zabbix-teams-alertscript / https://github.com/ericoc/zabbix-slack-alertscript"'
 curlmaxtime='-m 60'

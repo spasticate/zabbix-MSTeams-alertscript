@@ -4,25 +4,27 @@ Zabbix Slack AlertScript
 
 About
 -----
-This is simply a Bash script that uses the custom alert script functionality within [Zabbix](http://www.zabbix.com/) along with the incoming web-hook feature of [Slack](https://slack.com/) that I got a chance to write since I could not find any already existing/similar scripts.
+This is simply a Bash script that uses the custom alert script functionality within [Zabbix](http://www.zabbix.com/) along with the incoming web-hook feature of [MS Teams](https://www.microsoft.com/) 
+It is heavily based on the previous Zabbix Slack alert script here: https://github.com/ericoc/zabbix-slack-alertscript
 
 #### Versions
 This works with Zabbix 1.8.x or greater - including 2.2, 2.4 and 3.x!
 
 #### Huge thanks and appreciation to:
 
+* [Eric OC](https://github.com/ericoc/) for the original script on which this modification is based 
 * [Paul Reeves](https://github.com/pdareeves/) for the hint that Slack changed their API/URLs!
 * [Igor Shishkin](https://github.com/teran) for the ability to message users as well as channels!
 * Leslie at AspirationHosting for confirming that this script works on Zabbix 1.8.2!
 * [Hiromu Yakura](https://github.com/hiromu) for escaping quotation marks in the fields received from Zabbix to have valid JSON!
 * [Devlin Gonçalves](https://github.com/devlinrcg), [tkdywc](https://github.com/tkdywc), [damaarten](https://github.com/damaarten), and [lunchables](https://github.com/lunchables) for Zabbix 3.0 AlertScript documentation, suggestions and testing!
 
-Installation
+Installation (work in progress changing terminology and proceedures from slack instructions)
 ------------
 
 ### The script itself
 
-This [`slack.sh` script](https://github.com/ericoc/zabbix-slack-alertscript/raw/master/slack.sh) needs to be placed in the `AlertScriptsPath` directory that is specified within the Zabbix servers' configuration file (`zabbix_server.conf`) and must be executable by the user running the zabbix_server binary (usually "zabbix") on the Zabbix server:
+This slack.sh script needs to be placed in the `AlertScriptsPath` directory that is specified within the Zabbix servers' configuration file (`zabbix_server.conf`) and must be executable by the user running the zabbix_server binary (usually "zabbix") on the Zabbix server:
 
 	[root@zabbix ~]# grep AlertScriptsPath /etc/zabbix/zabbix_server.conf
 	### Option: AlertScriptsPath
@@ -36,24 +38,14 @@ If you do change `AlertScriptsPath` (or any other values) within `zabbix_server.
 Configuration
 -------------
 
-### Slack.com web-hook
+### MS Teams web-hook
 
-An incoming web-hook integration must be created within your Slack.com account which can be done at [https://my.slack.com/services/new/incoming-webhook](https://my.slack.com/services/new/incoming-webhook) as shown below:
+An incoming web-hook integration must be created within your Teams account:
 
-![Slack.com Incoming Web-hook Integration](https://pictures.ericoc.com/github/newapi/slack-integration.png "Slack.com Incoming Web-hook Integration")
-
-Given the above screenshot, the incoming web-hook URL would be:
-
-	https://hooks.slack.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123
-	
-Make sure that you specify your correct Slack.com incoming web-hook URL and feel free to edit the sender user name at the top of the script:
-
-	# Slack incoming web-hook URL and user name
-	url='https://hooks.slack.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123'
-	username='Zabbix'
+https://msdn.microsoft.com/en-us/microsoft-teams/connectors
 
 
-### Within the Zabbix web interface
+### Within the Zabbix web interface (definitely this is out of data and taling about slack rather than teams)
 
 When logged in to the Zabbix servers web interface with super-administrator privileges, navigate to the "Administration" tab, access the "Media Types" sub-tab, and click the "Create media type" button.
 
