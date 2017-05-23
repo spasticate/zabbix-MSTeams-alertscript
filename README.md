@@ -45,7 +45,7 @@ An incoming web-hook integration must be created within your Teams account:
 https://msdn.microsoft.com/en-us/microsoft-teams/connectors
 
 
-### Within the Zabbix web interface (definitely this is out of data and taling about slack rather than teams)
+### Within the Zabbix web interface (definitely this is out of data and talking about slack rather than MS teams)
 
 When logged in to the Zabbix servers web interface with super-administrator privileges, navigate to the "Administration" tab, access the "Media Types" sub-tab, and click the "Create media type" button.
 
