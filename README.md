@@ -42,7 +42,7 @@ Configuration
 
 An incoming web-hook integration must be created within your Teams account:
 
-https://msdn.microsoft.com/en-us/microsoft-teams/connectors
+https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook
 
 
 ### Within the Zabbix web interface (definitely this is out of data and talking about slack rather than MS teams)
